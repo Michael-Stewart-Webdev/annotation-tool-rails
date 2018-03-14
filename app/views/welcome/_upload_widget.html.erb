@@ -1,0 +1,18 @@
+<div class="upload-widget">
+  <form class="box js" method="post" id="form-<%= locals[:action] %>" action="<%= locals[:action] %>" enctype="multipart/form-data" novalidate="">
+    <div class="box__input"><i class="fa fa-upload upload-icon"></i>
+      <input class="box__file" id="file-<%= locals[:action] %>" type="file" name="files[]" data-multiple-caption="{count} files selected" multiple=""/>
+      <label for="file-<%= locals[:action] %>"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
+      <button class="box__button" type="submit">Upload</button>
+    </div>
+    <div class="box__uploading">Uploading…</div>
+    <div class="box__success">Your file was successfully uploaded.</div>
+    <div class="box__error">Error! <span></span></div>
+    <div class="progress-bar-container">
+      <div class="progress-bar"> 
+        <div class="progress-bar-fill"></div>
+        <div class="progress-percent-complete">0%</div>
+      </div>
+    </div>
+  </form>
+</div>

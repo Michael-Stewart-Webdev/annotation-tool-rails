@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<title> Redcoat </title>
+
+	    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+	    <%= yield(:head_scripts) %>
+
+	</head>
+	<body<% if content_for :body_class %> class="<%= yield(:body_class) %>"<% end %>>
+
+		<%= render("layouts/navbar") %>
+		<div id="main-container">
+			<main>
+				<%= yield %>
+			</main>
+		</div>
+	</body>
+	<%= yield(:scripts) %>
+	
+</html>

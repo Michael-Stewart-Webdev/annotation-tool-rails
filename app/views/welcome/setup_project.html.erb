@@ -1,0 +1,452 @@
+<section id="setup-menu">
+  <nav id="sidenav">
+    <ul class="setup-stages" id="nav-setup-stages">
+      <li><span>Project Details<i class="fa fa-check"></i></span></li>
+      <li class="not-yet-started"><span> <i class="fa fa-check"></i>Dataset</span></li>
+      <li class="not-yet-started"><span> <i class="fa fa-check"></i>Entity Categories</span></li>
+      <li class="not-yet-started"><span> <i class="fa fa-check"></i>Distribution</span></li>
+      <li class="not-yet-started"><span> <i class="fa fa-check"></i>Administrator Account</span></li>
+      <li class="not-yet-started"><span> <i class="fa fa-check"></i>Submission</span></li>
+    </ul>
+  </nav>
+  <div id="setup-questions">
+    <article class="article-heading" id="project-details">
+      <h1>Project Details</h1>
+      <div class="form-section">
+        <p>Please enter the details of your project below.</p>
+        <form>
+          <div class="form-group">
+            <label for="input-project-name">Project Name*</label>
+            <input id="input-project-name" placeholder="Project Name" autofocus="autofocus" required="required"/>
+            <div class="form-help">The name of the project.</div>
+          </div>
+          <div class="form-group">
+            <label for="input-project-desc">Project Description</label>
+            <input id="input-project-desc" placeholder="Project Description"/>
+            <div class="form-help">A short description of the project.</div>
+          </div>
+          <!--div.submit-row-->
+          <!--	input(type="submit" value="Next: Upload Dataset")-->
+        </form>
+      </div>
+      <div class="saved-notification">
+        <p><i class="fa fa-check"></i> This section has been saved.</p>
+      </div>
+    </article>
+    <article class="article-heading not-scrolled-to" id="dataset">
+      <h1>Dataset</h1>
+      <div class="form-section">
+        <p>Please upload your tokenized data using the form below.</p>
+        <p>The dataset must be saved as a <code>.txt</code> file. Each line in the file will represent one document to be annotated. <a href="/files/example_tokenized.txt" download>Click here</a> to download a small example file.</p>
+
+        <br/>
+        <%= render "welcome/upload_widget", locals: {action: "upload-tokenized"} %>
+
+      <div class="saved-notification">
+        <p><i class="fa fa-check"></i> This section has been saved.</p>
+      </div>
+
+
+        <% if false %>
+        <p>Before uploading your data, please determine whether your dataset has been tokenized.</p>
+        <blockquote><a class="subsection-open-button" id="already-tokenized-data-button">Yes, my data has been tokenized.</a></blockquote>
+        <blockquote><a class="subsection-open-button" id="untokenized-data-button">No, my data has not been tokenized.</a></blockquote>
+        <div class="subsection subsection-hidden" id="already-tokenized-data">
+          <h3>Already tokenized data</h3>
+          <div class="pad">
+            <p>Please upload your tokenized data using the form below.</p>
+            <p>The dataset must be saved as a <code>.txt</code> file. Each token within your data must be separated by a newline, and each record must be separated by an additional newline. <a href="/files/example_tokenized.txt" download>Click here</a> to download a small example file.</p>
+
+
+            <%= render "welcome/upload_widget", locals: {action: "upload-tokenized"} %>
+
+           <!--blockquote-->
+            <!--	a(id="actually-untokenized-data-button") Actually, my data is not tokenized.	-->
+          </div>
+        </div>
+        <div class="subsection subsection-hidden" id="untokenized-data">
+          <h3>Untokenized data</h3>
+          <div class="pad">
+            <p>Please upload your data using the form below.</p>
+            <p>The dataset must be saved as a <code>.txt</code> file. Each record within your data must be separated by a new line. <a href="/files/example_untokenized.txt" download>Click here</a> to download a small example file.</p>
+
+            <%= render "welcome/upload_widget", locals: {action: "upload-untokenized"} %>
+
+            <!--blockquote-->
+            <!--	a(id="actually-already-tokenized-data-button") Actually, my data is already tokenized.	-->
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </article>
+    <article class="article-heading not-scrolled-to" id="dataset">
+      <h1>Entity Categories</h1>
+      <div class="form-section">
+        <p>Please determine how you would prefer to upload the entity categories (such as "Person" and "Organisation") in your data.</p>
+        <blockquote><a class="subsection-open-button" id="entity-categories-file-button">My entity categories are saved in a file.</a></blockquote>
+        <blockquote><a class="subsection-open-button" id="entity-categories-list-button">I'll list the entity categories here.</a></blockquote>
+        <blockquote><a class="subsection-open-button" id="entity-categories-ner-button">I'm using the standard 4 class model for Named Entity Recognition.</a></blockquote>
+        <div class="subsection subsection-hidden" id="entity-categories-file">
+          <h3>Entity categories from file</h3>
+          <div class="pad">
+            <p>Please upload your entity categories using the form below.</p>
+            <p>The list of entity categories must be saved as a <code>.txt</code> file. Each line in the file must contain an entity category, followed by a tab character, followed by an abbreviated form of that entity (such as <code>PER</code> for "Person").</p>
+            <p>You may optionally add a tag colour by adding an additional tab character and a 6-digit hexadecimal colour code to the end of the line. This will determine the colour of the respective entity's label during annotation.</p>
+            <p><a href="/files/example_categories.txt" download>Click here</a> to download a small example file.</p>
+            <form>
+              <div class="form-group">
+                <!--label(for="input-tokenized-data").file-upload-label Tokenized data file-->
+                <!--div.form-file-upload-->
+                <!--	input(type="file" id="input-tokenized-data")-->
+                <!--	input(type="submit" value="Upload")-->
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="subsection subsection-hidden" id="entity-categories-list">
+          <h3>List entity categories</h3>
+          <div class="pad">
+            <p>Please enter your entity categories into the table below.</p>
+            <p>The "Abbreviation" will determine what is written in the output file after annotation, while the "Colour" will determine the colour of the tag during annotation.</p>
+            <form>
+              <table class="entity-categories-table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Abbreviation</th>
+                    <th>Colour</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="article-heading not-scrolled-to" id="dataset">
+      <h1>Distribution</h1>
+      <div class="form-section">
+        <p>Please determine how you would like to distribute the annotation task.</p>
+        <blockquote><a class="subsection-open-button" id="distribute-self-button">I'll complete the annotation task myself.</a></blockquote>
+        <blockquote><a class="subsection-open-button" id="distribute-self-codes-button">I'd like a list of codes that I will send to the annotators myself.</a></blockquote>
+        <blockquote><a class="subsection-open-button" id="distribute-email-button">I'd like the server to email codes to the annotators automatically.		</a></blockquote>
+      </div>
+    </article>
+    <article class="article-heading not-scrolled-to" id="dataset">
+      <h1>Administrator Account</h1>
+      <div class="form-section">
+        <p>In order to keep track of the annotation and to easily download the data that has been annotated, please provide a username and password below. This will provide you with the ability to log in to the application through the homepage.</p>
+        <form>
+          <div class="form-group">
+            <label for="input-username">Username*</label>
+            <input id="input-username" placeholder="Username" autofocus="autofocus" required="required"/>
+          </div>
+          <div class="form-group" style="margin-top: -20px">
+            <label for="input-password">Password*</label>
+            <input id="input-password" type="password" placeholder=""/>
+          </div>
+        </form>
+      </div>
+    </article>
+    <article class="article-heading not-scrolled-to" id="dataset">
+      <h1>Submission</h1>
+      <div class="form-section">
+        <p>Once you have completed the form, please click the submit button below to set up the project.</p>
+        <form>
+          <div class="submit-row">
+            <input type="submit" value="Submit and create project"/>
+          </div>
+        </form>
+      </div>
+    </article>
+    <div style="height: 600px"></div>
+  </div>
+</section>
+
+
+
+<%= content_for :scripts do %>
+  <script type="text/javascript">
+
+    
+
+
+
+    // Scroll to headings when clicking on nav
+    $($("#nav-setup-stages").children()).on("click", function() {
+      $('html, body').animate({scrollTop: $($(".article-heading")[$(this).index()]).offset().top - 100}, 500);
+    });
+
+    $(document).on('scroll', function() {
+      $(".article-heading.scrolled-to").each(function() {
+          if($(document).scrollTop()<$(this).position().top - 250){            
+            $(this).addClass("not-scrolled-to")
+            $(this).removeClass("scrolled-to")
+            $($("#nav-setup-stages").children()[$(this).index() - 1]).removeClass("scrolled-past")
+            $($("#nav-setup-stages").children()[$(this).index()]).addClass("not-yet-started")             
+          } 
+      })
+
+      $(".article-heading.not-scrolled-to").each(function() {
+          if($(document).scrollTop()>=$(this).position().top - 250){            
+            $(this).removeClass("not-scrolled-to")
+            $(this).addClass("scrolled-to")
+            $($("#nav-setup-stages").children()[$(this).index() - 1]).addClass("scrolled-past")
+            $($("#nav-setup-stages").children()[$(this).index()]).removeClass("not-yet-started")             
+          }
+      })
+    })
+
+    $("#entity-categories-file-button").on("click", function() {
+      $("#entity-categories-file").slideDown(500)
+      $("#entity-categories-list").slideUp(500)
+      $("#entity-categories-list-button").addClass("fade-out");     
+      $("#entity-categories-file-button").removeClass("fade-out");
+    });
+
+    $("#entity-categories-list-button").on("click", function() {
+      $("#entity-categories-list").slideDown(500)
+      $("#entity-categories-file").slideUp(500)
+      $("#entity-categories-file-button").addClass("fade-out");     
+      $("#entity-categories-list-button").removeClass("fade-out");
+    });
+
+    $("#already-tokenized-data-button").on("click", function() {
+      $("#already-tokenized-data").slideDown(500)
+      $("#untokenized-data").slideUp(500)
+      $("#untokenized-data-button").addClass("fade-out");     
+      $("#already-tokenized-data-button").removeClass("fade-out");
+    });
+
+    $("#untokenized-data-button").on("click", function() {
+      $("#untokenized-data").slideDown(500)
+      $("#already-tokenized-data").slideUp(500)
+      $("#already-tokenized-data-button").addClass("fade-out");
+      $("#untokenized-data-button").removeClass("fade-out");
+    });
+  
+  </script> 
+
+  <script type="text/javascript">
+
+    // Drag and drop code and css found here:
+    // https://css-tricks.com/examples/DragAndDropFileUploading/
+
+    'use strict';
+
+
+      // feature detection for drag&drop upload
+
+      var isAdvancedUpload = function()
+        {
+          var div = document.createElement( 'div' );
+          return ( ( 'draggable' in div ) || ( 'ondragstart' in div && 'ondrop' in div ) ) && 'FormData' in window && 'FileReader' in window;
+        }();
+
+
+      // applying the effect for every form
+
+      $( '.box' ).each( function(index)
+      {
+        var $form      = $(this),
+        $input     = $form.find( 'input[type="file"]' ),
+        $label     = $form.find( 'label' ),
+        $errorMsg  = $form.find( '.box__error span' ),
+        $restart   = $form.find( '.box__restart' ),
+        droppedFiles = false,
+        showFiles  = function( files )
+        {
+          $label.text( files.length > 1 ? ( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
+        };
+
+        // letting the server side to know we are going to make an Ajax request
+        $form.append( '<input type="hidden" name="ajax" value="1" />' );
+
+        // automatically submit the form on file select
+        $input.on( 'change', function( e )
+        {
+          //console.log($(this))
+          //$form = $(this).closest('.box')
+          //console.log('...', $form)
+          showFiles( e.target.files );          
+          $form.trigger( 'submit' );          
+        });
+
+        console.log($input)
+
+
+
+        // drag&drop files if the feature is available
+        if( isAdvancedUpload )
+        {
+          $form
+          .addClass( 'has-advanced-upload' ) // letting the CSS part to know drag&drop is supported by the browser
+          .on( 'drag dragstart dragend dragover dragenter dragleave drop', function( e )
+          {
+            // preventing the unwanted behaviours
+            e.preventDefault();
+            e.stopPropagation();
+          })
+          .on( 'dragover dragenter', function() //
+          {
+            $form.addClass( 'is-dragover' );
+          })
+          .on( 'dragleave dragend drop', function()
+          {
+            $form.removeClass( 'is-dragover' );
+          })
+          .on( 'drop', function( e )
+          {
+            droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
+            showFiles( droppedFiles );            
+            $form.trigger( 'submit' ); // automatically submit the form on file drop            
+          });
+        }
+
+
+        // if the form was submitted
+
+        var progressBar = $(this).find('.progress-bar-fill')
+        var progressPercent = $(this).find('.progress-percent-complete')
+
+        $form.on( 'submit', function( e )
+        {
+
+          var other_sections =  $form.closest(".form-section").find(".subsection-open-button.fade-out")
+          other_sections.each(function(ele) {
+            //var this_id = $(this).attr('id')
+            //var section_id = this_id.substring(0, this_id.length-7)
+            $(this).addClass("disabled")
+          })
+
+
+          // preventing the duplicate submissions if the current one is in progress
+          if( $form.hasClass( 'is-uploading' ) ) return false;
+
+          $form.addClass( 'is-uploading' ).removeClass( 'is-error' );
+
+          if( isAdvancedUpload ) // ajax file upload for modern browsers
+          {
+            e.preventDefault();
+
+            // gathering the form data
+            var ajaxData = new FormData( $form.get( 0 ) );
+            if( droppedFiles )
+            {
+              $.each( droppedFiles, function( i, file )
+              {
+                ajaxData.append( $input.attr( 'name' ), file );
+              });
+            }
+
+            console.log($form.attr( 'action' ))
+
+            // ajax request
+            $.ajax(
+            {
+
+              xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+
+                xhr.upload.addEventListener("progress", function(evt) {
+                  if (evt.lengthComputable) {
+                    var percentComplete = evt.loaded / evt.total;
+                    percentComplete = parseInt(percentComplete * 100);
+                    console.log(percentComplete);
+
+                    progressBar.css("width", "" + percentComplete + "%")
+                    progressPercent.html("" + percentComplete + "%")
+
+                    if (percentComplete === 100) {
+
+                    }
+
+                  }
+                }, false);
+
+                return xhr;
+              },
+
+              url:      $form.attr( 'action' ),
+              type:     $form.attr( 'method' ),
+              data:       ajaxData,
+              dataType:   'json',
+              cache:      false,
+              contentType:  false,
+              processData:  false,
+              complete: function()
+              {
+                $form.removeClass( 'is-uploading' );
+              },
+              success: function( data )
+              {
+                $form.addClass( data.success == true ? 'is-success' : 'is-error' );
+                console.log(data.total_tokens)
+                if( !data.success ) $errorMsg.text( data.error );
+              },
+              error: function()
+              {           
+                other_sections.removeClass("disabled")    
+                alert( 'Error. Please, contact the webmaster!' );
+              }
+            });
+          }
+          else // fallback Ajax solution upload for older browsers
+          {
+            var iframeName  = 'uploadiframe' + new Date().getTime(),
+              $iframe   = $( '<iframe name="' + iframeName + '" style="display: none;"></iframe>' );
+
+            $( 'body' ).append( $iframe );
+            $form.attr( 'target', iframeName );
+
+            $iframe.one( 'load', function()
+            {
+              var data = $.parseJSON( $iframe.contents().find( 'body' ).text() );
+              $form.removeClass( 'is-uploading' ).addClass( data.success == true ? 'is-success' : 'is-error' ).removeAttr( 'target' );
+              if( !data.success ) $errorMsg.text( data.error );
+              $iframe.remove();
+            });
+          }
+        });
+
+
+        // restart the form if has a state of error/success
+
+        $restart.on( 'click', function( e )
+        {
+          e.preventDefault();
+          $form.removeClass( 'is-error is-success' );
+          $input.trigger( 'click' );
+        });
+
+        // Firefox focus bug fix for file input
+        $input
+        .on( 'focus', function(){ $input.addClass( 'has-focus' ); })
+        .on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
+
+
+
+      });
+
+      
+
+
+</script> 
+<% end %>
